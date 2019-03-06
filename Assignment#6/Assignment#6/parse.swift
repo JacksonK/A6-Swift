@@ -9,6 +9,7 @@
 import Foundation
 let sexp = ["'var", ["'z","'=", 14], ["'+", "'z", true]] as [Any]
 let testif = ["'if", true, 1, 2] as [Any]
+
 let testlam = ["'lam", ["'x"], ["'x", 1, 2]] as [Any]
 
 
@@ -20,6 +21,7 @@ class IdC: ExprC {
         self.s = s
     }
 }
+
 class ExprC {
     var description : String {
         return "ExprC"
@@ -47,6 +49,7 @@ class StringC: ExprC {
         return self.str
     }
 }
+
 class IfC: ExprC {
     var i: BoolC
     var t: ExprC
@@ -58,6 +61,7 @@ class IfC: ExprC {
         else {
             print("ERROR: FIRST VALUE IN IF MUST BE BOOLEAN")
            self.i = BoolC(b: false)
+
         }
         self.t = t
         self.e = e
@@ -93,6 +97,7 @@ class appC: ExprC {
     override var description: String {
         return "(appC \(self.fname.description) \(self.args))"
     }
+
 }
 class BoolC: ExprC {
     var b: Bool
@@ -102,6 +107,7 @@ class BoolC: ExprC {
     override var description: String {
         return String(self.b)
     }
+
 }
 
 
@@ -140,6 +146,7 @@ func parse(s : Any) -> ExprC {
                 }
             }
             //else if fir == "'var" && lis.count ==
+
             //if fir == "'lam" &&
         default:
             return NullC()
