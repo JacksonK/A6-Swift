@@ -48,3 +48,11 @@ class ClosV: Value {
         self.env = env
     }
 }
+
+class PrimV: Value {
+    var op: ((Value, Value) -> Value)
+
+    init(op: @escaping ((Value, Value) -> Value)) {
+        self.op = op
+    }
+}

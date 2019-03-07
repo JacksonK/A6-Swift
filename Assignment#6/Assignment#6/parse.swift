@@ -39,19 +39,11 @@ func parse(s : Any) -> ExprC {
             if fir == "'if" && lis.count == 4 {
                 return IfC(i: parse(s: lis[1]), t: parse(s: lis[2]), e: parse(s: lis[3]))
             }
-            else if fir == "'+" && lis.count == 3 {
+            else if (fir == "'+" || fir == "'-" || fir == "'/" || fir == "'*") && lis.count == 3 {
                 //print("in plus case")
                 //print("left: ", lis[1], "right : ", lis[2])
-                return PlusC(left: parse(s: lis[1]), right: parse(s: lis[2]))
-            }
-            else if fir == "'-" && lis.count == 3 {
-                return MinusC(left: parse(s: lis[1]), right: parse(s: lis[2]))
-            }
-            else if fir == "'*" && lis.count == 3 {
-                return MultC(left: parse(s: lis[1]), right: parse(s: lis[2]))
-            }
-            else if fir == "'/" && lis.count == 3 {
-                return DivC(left: parse(s: lis[1]), right: parse(s: lis[2]))
+                //return PlusC(left: parse(s: lis[1]), right: parse(s: lis[2]))
+                return AppC(fun: parse(s: fir), args: [parse(s: lis[1]), parse(s: lis[2])])
             }
             else if fir == "'lam" && lis.count == 3 {
                 let l = lis[1]

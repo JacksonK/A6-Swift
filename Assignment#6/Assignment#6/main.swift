@@ -16,6 +16,87 @@ func bindArgs(args: [Value], vars: [String], env: Env ) -> Env {
     return newEnv
 }
 
+
+func numPlus (left: Value, right: Value) -> Value {
+    //print("in numPlus")
+    switch left {
+    case let left_num as NumV:
+        switch right {
+        case let right_num as NumV:
+            //print("left = ", left_num.num)
+            //print("right = ", right_num.num)
+            let x = left_num.num + right_num.num
+            return NumV(num: x)
+        default:
+            return NullV()
+        }
+    default:
+        return NullV()
+    }
+}
+
+func numMinus (left: Value, right: Value) -> Value {
+    //print("in numPlus")
+    switch left {
+    case let left_num as NumV:
+        switch right {
+        case let right_num as NumV:
+            //print("left = ", left_num.num)
+            //print("right = ", right_num.num)
+            let x = left_num.num - right_num.num
+            return NumV(num: x)
+        default:
+            return NullV()
+        }
+    default:
+        return NullV()
+    }
+}
+
+func numMult (left: Value, right: Value) -> Value {
+    //print("in numPlus")
+    switch left {
+    case let left_num as NumV:
+        switch right {
+        case let right_num as NumV:
+            //print("left = ", left_num.num)
+            //print("right = ", right_num.num)
+            let x = left_num.num * right_num.num
+            return NumV(num: x)
+        default:
+            return NullV()
+        }
+    default:
+        return NullV()
+    }
+}
+
+func numDivide (left: Value, right: Value) -> Value {
+    //print("in numPlus")
+    switch left {
+    case let left_num as NumV:
+        switch right {
+        case let right_num as NumV:
+            //print("left = ", left_num.num)
+            //print("right = ", right_num.num)
+            if right_num.num != 0.0 {
+                let x = left_num.num / right_num.num
+                return NumV(num: x)
+            }
+            else {
+                return NullV()
+            }
+        default:
+            return NullV()
+        }
+    default:
+        return NullV()
+    }
+}
+
+
+
+
 func interp( exp: ExprC, env: Env ) -> Value {
     //print("in interp")
     //print("exp ",exp)
@@ -37,6 +118,9 @@ func interp( exp: ExprC, env: Env ) -> Value {
                 }
                 
                 return interp(exp: fval.body, env: bindArgs(args: closArgsList, vars: fval.args, env: fval.env) )
+            case let fprim as PrimV:
+                //if exp_app.args
+                return fprim.op(interp(exp: exp_app.args[0], env: env), interp(exp: exp_app.args[1], env: env))
             default:
                 return Value()
         }        
@@ -56,41 +140,41 @@ func interp( exp: ExprC, env: Env ) -> Value {
         //print("found_binding=", found_binding)
         //print("env = ", env)
         return found_binding!.val
-    case let exp_plusC as PlusC:
-        let left = interp(exp: exp_plusC.left, env: env) as! NumV
-        let right = interp(exp: exp_plusC.right, env: env) as! NumV
-        let result = left.num + right.num
-        //print("in PlusC adding", result)
-        return NumV(num: result)
-    case let exp_minusC as MinusC:
-        let left = interp(exp: exp_minusC.left, env: env) as! NumV
-        let right = interp(exp: exp_minusC.right, env: env) as! NumV
-        let result = left.num - right.num
-        return NumV(num: result)
-    case let exp_multC as MultC:
-        let left = interp(exp: exp_multC.left, env: env) as! NumV
-        let right = interp(exp: exp_multC.right, env: env) as! NumV
-        let result = left.num * right.num
-        return NumV(num: result)
-    case let exp_divC as DivC:
-        let left = interp(exp: exp_divC.left, env: env) as! NumV
-        let right = interp(exp: exp_divC.right, env: env) as! NumV
-        if right.num == 0 {
-            return NullV()
-        }
-        else {
-            let result = left.num / right.num
-            return NumV(num: result)
-        }
-    case let exp_leequalC as leequalC:
-        let left = interp(exp: exp_leequalC.right, env: env) as! NumV
-        let right = interp(exp: exp_leequalC.left, env: env) as! NumV
-        if left.num <= right.num {
-            return BoolV(bool: true)
-        }
-        else {
-            return BoolV(bool: false)
-        }
+//    case let exp_plusC as PlusC:
+//        let left = interp(exp: exp_plusC.left, env: env) as! NumV
+//        let right = interp(exp: exp_plusC.right, env: env) as! NumV
+//        let result = left.num + right.num
+//        //print("in PlusC adding", result)
+//        return NumV(num: result)
+//    case let exp_minusC as MinusC:
+//        let left = interp(exp: exp_minusC.left, env: env) as! NumV
+//        let right = interp(exp: exp_minusC.right, env: env) as! NumV
+//        let result = left.num - right.num
+//        return NumV(num: result)
+//    case let exp_multC as MultC:
+//        let left = interp(exp: exp_multC.left, env: env) as! NumV
+//        let right = interp(exp: exp_multC.right, env: env) as! NumV
+//        let result = left.num * right.num
+//        return NumV(num: result)
+//    case let exp_divC as DivC:
+//        let left = interp(exp: exp_divC.left, env: env) as! NumV
+//        let right = interp(exp: exp_divC.right, env: env) as! NumV
+//        if right.num == 0 {
+//            return NullV()
+//        }
+//        else {
+//            let result = left.num / right.num
+//            return NumV(num: result)
+//        }
+//    case let exp_leequalC as leequalC:
+//        let left = interp(exp: exp_leequalC.right, env: env) as! NumV
+//        let right = interp(exp: exp_leequalC.left, env: env) as! NumV
+//        if left.num <= right.num {
+//            return BoolV(bool: true)
+//        }
+//        else {
+//            return BoolV(bool: false)
+//        }
         
     default:
         //print("returning value for ", exp)
@@ -99,7 +183,11 @@ func interp( exp: ExprC, env: Env ) -> Value {
 }
 
 //test cases
-let testBindings = [Binding(name: "t", val: NumV(num: 2))]
+let testBindings = [Binding(name: "t", val: NumV(num: 2)),
+                    Binding(name: "+", val: PrimV(op: numPlus)),
+                    Binding(name: "-", val: PrimV(op: numMinus)),
+                    Binding(name: "/", val: PrimV(op: numDivide)),
+                    Binding(name: "*", val: PrimV(op: numMult))]
 let testEnv = Env(bindings: testBindings)
 //print( interp(exp: IdC(s: "t"), env: testEnv))
 //
