@@ -8,6 +8,10 @@
 
 import Foundation
 
+func topinterp(sexp : [Any]) -> String {
+    return serializable(v: (interp(exp: parse(s: sexp), env: testEnv)))
+}
+
 func serializable(v : Value) -> String {
     switch v {
     case let s as StringV:
@@ -21,9 +25,10 @@ func serializable(v : Value) -> String {
     case is ClosV:
         return "closure"
     default:
-        return "serializable error"
+        return "serializable error: \(v)"
     }
 }
+
 
 func tests() -> Void {
     print("testing")
@@ -33,6 +38,6 @@ func tests() -> Void {
     print("t4: ", serializable(v: ClosV(args: ["test"], body: StringC(str: "test"), env: Env(bindings: []))) == "closure")
     print("t5: ", serializable(v: NullV()) == "null")
     print("t6: ", serializable(v: NumV(num: 42)) == "42.0")
-
+    print("t7: ", topinterp(sexp: ["'+", 1, 2]) == "3.0")
 }
 
