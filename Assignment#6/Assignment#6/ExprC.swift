@@ -8,13 +8,21 @@
 
 import Foundation
 
-class ExprC {}
+class ExprC {
+    var description : String {
+        return "ExprC"
+    }
+}
 
 class NumC: ExprC {
     var num: Float
     
     init(num: Float) {
         self.num = num
+    }
+    
+    override var description: String {
+        return "\(self.num)"
     }
 }
 
@@ -24,6 +32,10 @@ class StringC: ExprC {
     init(str: String) {
         self.str = str
     }
+    
+    override var description: String {
+        return self.str
+        }
 }
 
 class PlusC: ExprC {
@@ -33,6 +45,10 @@ class PlusC: ExprC {
     init(left: ExprC, right: ExprC) {
         self.left = left
         self.right = right
+    }
+    
+    override var description: String {
+        return "PlusC `\(self.left.description) `\(self.right.description)"
     }
 }
 
@@ -45,6 +61,10 @@ class MinusC: ExprC {
         self.left = left
         self.right = right
     }
+    
+    override var description: String {
+        return "MinusC \(self.left.description) \(self.right.description)"
+    }
 }
 
 
@@ -55,6 +75,10 @@ class MultC: ExprC {
     init(left: ExprC, right: ExprC) {
         self.left = left
         self.right = right
+    }
+    
+    override var description: String {
+        return "MultC \(self.left.description) \(self.right.description)"
     }
 }
 
@@ -67,6 +91,10 @@ class DivC: ExprC {
         self.left = left
         self.right = right
     }
+    
+    override var description: String {
+        return "DivC \(self.left.description) \(self.right.description)"
+    }
 }
 
 
@@ -77,6 +105,10 @@ class leequalC: ExprC {
     init(left: ExprC, right: ExprC) {
         self.left = left
         self.right = right
+    }
+    
+    override var description: String {
+        return "leequalC \(self.left.description) \(self.right.description)"
     }
 }
 
@@ -89,6 +121,10 @@ class AppC: ExprC {
         self.fun = fun
         self.args = args
     }
+    
+    override var description: String {
+        return "AppC \(self.fun.description) \(self.args.description)"
+    }
 }
 
 class LamC: ExprC {
@@ -99,12 +135,21 @@ class LamC: ExprC {
         self.args = args
         self.body = body
     }
+    
+    override var description: String {
+        return "LamC \(self.args) \(self.body.description)"
+    }
 }
 
 class IdC: ExprC {
     var s: String
     init(s: String) {
         self.s = s
+    }
+    
+    override var description: String {
+        return "IdC \(self.s)"
+        
     }
 }
 
@@ -114,13 +159,16 @@ class BoolC: ExprC {
     init(b: Bool) {
         self.b = b
     }
-//    override var description: String {
-//        return String(self.b)
-//    }
+    override var description: String {
+        return String(self.b)
+    }
     
 }
 
 class NullC: ExprC {
+    override var description: String {
+        return "NullC"
+    }
     
 }
 
@@ -142,8 +190,10 @@ class IfC: ExprC {
         self.t = t
         self.e = e
     }
-//    override var description: String {
-//        return "IfC \(self.i.description) \(self.t.description) \(self.e.description)"
-//    }
+    
+    override var description: String {
+        return "IfC \(self.i.description) \(self.t.description) \(self.e.description)"
+        
+    }
 }
 
