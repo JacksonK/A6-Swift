@@ -46,10 +46,11 @@ func tests() -> Void {
     print("t10: ", topinterp(sexp: ["'/", 1, 0]) == "null") // Should return null because it is trying to divide by zero
     print("t11: ", topinterp(sexp: ["'*", 1, 2])  == "2.0")
     print("t12: ", topinterp(sexp: ["'*", 2, ["'+", 1, 2]]) == "6.0")
-    print("t13: ", topinterp(sexp: ["'if", true, ["'+", 1, 2], ["'-", 1, 2]]) == "3.0")
-    print("t14: ", topinterp(sexp: ["'if", false, ["'+", 1, 2], ["'-", 1, 2]]) == "-1.0")
-    print("t15: ", serializable(v: interp(exp: AppC(fun: LamC(args: ["'z", "'y"], body: AppC(fun: IdC(s: "+"), args: [IdC(s: "'z"), IdC(s: "'y")])),
+    print("t13: ", topinterp(sexp: ["'<=", 1, 2])  == "true")
+    print("t14: ", topinterp(sexp: ["'if", true, ["'+", 1, 2], ["'-", 1, 2]]) == "3.0")
+    print("t15: ", topinterp(sexp: ["'if", false, ["'+", 1, 2], ["'-", 1, 2]]) == "-1.0")
+    print("t16: ", serializable(v: interp(exp: AppC(fun: LamC(args: ["'z", "'y"], body: AppC(fun: IdC(s: "+"), args: [IdC(s: "'z"), IdC(s: "'y")])),
                                                     args: [AppC(fun: IdC(s: "+"), args: [NumC(num: 9), NumC(num: 14)]), NumC(num: 98)]), env: testEnv)) == "121.0")
-    print("t16: ", topinterp(sexp: ["'lam", ["'z", "'y"], ["'+", "'z", "'y"]]) == "closure")
+    print("t17: ", topinterp(sexp: ["'lam", ["'z", "'y"], ["'+", "'z", "'y"]]) == "closure")
 }
 

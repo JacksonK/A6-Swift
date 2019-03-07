@@ -82,6 +82,21 @@ func numDivide (left: Value, right: Value) -> Value {
     }
 }
 
+func numlessThanOrEqual (left: Value, right: Value) -> Value {
+    switch left {
+    case let left_num as NumV:
+        switch right {
+        case let right_num as NumV:
+            let x = left_num.num <= right_num.num
+            return BoolV(bool: x)
+        default:
+            return NullV()
+        }
+    default:
+        return NullV()
+    }
+}
+
 
 
 
@@ -130,7 +145,8 @@ func interp( exp: ExprC, env: Env ) -> Value {
 let testBindings = [Binding(name: "+", val: PrimV(op: numPlus)),
                     Binding(name: "-", val: PrimV(op: numMinus)),
                     Binding(name: "/", val: PrimV(op: numDivide)),
-                    Binding(name: "*", val: PrimV(op: numMult))]
+                    Binding(name: "*", val: PrimV(op: numMult)),
+                    Binding(name: "<=", val: PrimV(op: numlessThanOrEqual))]
 let testEnv = Env(bindings: testBindings)
 
 tests()
