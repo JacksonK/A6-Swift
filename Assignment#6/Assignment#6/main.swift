@@ -18,7 +18,7 @@ func bindArgs(args: [Value], vars: [String], env: Env ) -> Env {
 
 func interp( exp: ExprC, env: Env ) -> Value {
     //print("in interp")
-    print("exp ",exp)
+    //print("exp ",exp)
     switch exp {
     case let exp_num as NumC:
         return NumV( num: exp_num.num )
@@ -27,7 +27,7 @@ func interp( exp: ExprC, env: Env ) -> Value {
     case let exp_str as StringC:
         return StringV( str: exp_str.str )
     case let exp_app as AppC:
-        print("in AppC")
+        //print("in AppC")
         let f_value = interp(exp: exp_app.fun, env: env)
         switch f_value{
             case let fval as ClosV:
@@ -52,7 +52,7 @@ func interp( exp: ExprC, env: Env ) -> Value {
         }
     case let exp_id as IdC:
         let found_binding = env.bindings.first(where:{ $0.name == exp_id.s})
-        print("IdC: ", exp_id.description)
+        //print("IdC: ", exp_id.description)
         //print("found_binding=", found_binding)
         //print("env = ", env)
         return found_binding!.val
@@ -60,7 +60,7 @@ func interp( exp: ExprC, env: Env ) -> Value {
         let left = interp(exp: exp_plusC.left, env: env) as! NumV
         let right = interp(exp: exp_plusC.right, env: env) as! NumV
         let result = left.num + right.num
-        print("in PlusC adding", result)
+        //print("in PlusC adding", result)
         return NumV(num: result)
     case let exp_minusC as MinusC:
         let left = interp(exp: exp_minusC.left, env: env) as! NumV
@@ -93,7 +93,7 @@ func interp( exp: ExprC, env: Env ) -> Value {
         }
         
     default:
-        print("returning value for ", exp)
+        //print("returning value for ", exp)
         return Value()
     }
 }
@@ -143,15 +143,15 @@ let test_lam = [ ["'lam", ["'z", "'y"], ["'+", "'z", "'y"]], ["'+", 9, 14], 98] 
 
 //print("test lam ", interp(exp: parse(s: test_lam), env: testEnv))
 //print("test lam", parse(s: test_lam))
-if let lam_result = parse(s: test_lam)  as? AppC {
-    print("parsed = ", lam_result.description)
-    //print("args ", lam_result.args.description)
-    //print("func ", lam_result.fun.description)
-    
-}
-else {
-    print("Failed test #6")
-}
+//if let lam_result = parse(s: test_lam)  as? AppC {
+//    print("parsed = ", lam_result.description)
+//    //print("args ", lam_result.args.description)
+//    //print("func ", lam_result.fun.description)
+//    
+//}
+//else {
+//    print("Failed test #6")
+//}
 //if let lam_result = interp(exp: parse(s: test_lam), env: testEnv)  as? NumV {
 //    print(lam_result.num)
 //    //print("args ", lam_result.args.description)
@@ -181,4 +181,5 @@ let test_lam2 = ["'lam", ["'z", "'y"], ["'+", "'z", "'y"]] as [Any]
 //let x = parse(s: ["'+", 1, 2])
 //print(x)
 
-print(interp(exp: AppC(fun: LamC(args: ["'z", "'y"], body: PlusC(left: IdC(s: "'z"), right: IdC(s: "'y"))), args: [PlusC(left: NumC(num: 9), right: NumC(num: 14)), NumC(num: 98)]), env: testEnv)) 
+//print(interp(exp: AppC(fun: LamC(args: ["'z", "'y"], body: PlusC(left: IdC(s: "'z"), right: IdC(s: "'y"))), args: [PlusC(left: NumC(num: 9), right: NumC(num: 14)), NumC(num: 98)]), env: testEnv)) 
+tests()
