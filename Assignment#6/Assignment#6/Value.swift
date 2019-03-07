@@ -25,3 +25,15 @@ class StringV: Value {
         self.str = str
     }
 }
+
+class ClosV: Value {
+    var args: [String]
+    var body: ExprC
+    var env: Env
+    
+    init(args: [String], body: ExprC, env: Env) {
+        self.args = args
+        self.body = body
+        self.env = env
+    }
+}

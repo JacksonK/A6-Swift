@@ -35,3 +35,30 @@ class PlusC: ExprC {
         self.right = right
     }
 }
+
+class AppC: ExprC {
+    var fun: ExprC
+    var args: [ExprC]
+    
+    init(fun: ExprC, args: [ExprC]) {
+        self.fun = fun
+        self.args = args
+    }
+}
+
+class LamC: ExprC {
+    var args: [String]
+    var body: ExprC
+    
+    init(args: [String], body: ExprC) {
+        self.args = args
+        self.body = body
+    }
+}
+
+class IdC: ExprC {
+    var s: String
+    init(s: String) {
+        self.s = s
+    }
+}
