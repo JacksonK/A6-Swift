@@ -18,6 +18,17 @@ class NumV: Value {
     }
 }
 
+class NullV: Value {
+    
+}
+
+class BoolV: Value {
+    var bool: Bool
+    init(bool: Bool) {
+        self.bool = bool
+    }
+}
+
 class StringV: Value {
     var str: String
     
