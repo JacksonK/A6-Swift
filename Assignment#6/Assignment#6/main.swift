@@ -183,8 +183,7 @@ func interp( exp: ExprC, env: Env ) -> Value {
 }
 
 //test cases
-let testBindings = [Binding(name: "t", val: NumV(num: 2)),
-                    Binding(name: "+", val: PrimV(op: numPlus)),
+let testBindings = [Binding(name: "+", val: PrimV(op: numPlus)),
                     Binding(name: "-", val: PrimV(op: numMinus)),
                     Binding(name: "/", val: PrimV(op: numDivide)),
                     Binding(name: "*", val: PrimV(op: numMult))]
